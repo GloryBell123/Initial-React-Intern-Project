@@ -5,29 +5,35 @@ import FilterTabs from "./components/FilterTabs/FilterTabs.jsx";
 import TodoList from "./components/TodoList/TodoList.jsx";
 import TodoFooter from "./components/TodoFooter/TodoFooter.jsx";
 
+let date = new Date().toLocaleDateString("th-TH", {
+month: "long",
+day: "numeric",
+weekday: 'long',
+});
+
+// const 
+
 export default function TodoPage() {
 
-  let date = new Date().toLocaleDateString("th-TH", {
-  month: "long",
-  day: "numeric",
-  weekday: 'long',
-  });
 
-  const [Todo, setTodo] = useState([
+
+  const [useTodo, setUseTodo] = useState([
     {id: 1, Text: "TestTodoList-notDone", Done: false},
     {id: 2, Text: "TestTodoList-Done", Done: true},
   ]);
 
-  const [filterState, setFilter] = useState("ทั้งหมด"); {/* State ของ button (ทั้งหมด, ยังไม่เสร็จ, เสร็จแล้ว) */}
+  console.log(useTodo) 
 
-  const alreadyFilter = Todo.filter((i) => {      {/* ต้องเป็น true ถึงจะแสดงผล */}
-    if (filterState === "ทั้งหมด") {                {/* แสดงทั้ง array Todo */}
+  const [useFilterState, setUseFilterState] = useState("ทั้งหมด"); {/* State ของ button (ทั้งหมด, ยังไม่เสร็จ, เสร็จแล้ว) */}
+
+  const alreadyFilter = useTodo.filter((i) => {      {/* ต้องเป็น true ถึงจะแสดงผล */}
+    if (useFilterState === "ทั้งหมด") {                {/* แสดงทั้ง array Todo */}
       return i;
     }
-    else if (filterState === "ยังไม่เสร็จ") {          {/* สลับจาก false เป็น true */}
+    else if (useFilterState === "ยังไม่เสร็จ") {          {/* สลับจาก false เป็น true */}
       return !i.Done;
     }
-    else if (filterState === "เสร็จแล้ว") {           {/* แสดงเฉพาะ true */}
+    else if (useFilterState === "เสร็จแล้ว") {           {/* แสดงเฉพาะ true */}
       return i.Done;
     }
   })
@@ -41,10 +47,10 @@ export default function TodoPage() {
           <TodoForm/>
         </div>
         <div className="ml-7 mt-5 max-w-[80%] md:max-w-[80%] w-full">
-          <FilterTabs filter={filterState} setFilter={setFilter}/>
+          <FilterTabs filter={useFilterState} setFilter={setUseFilterState}/>
         </div>
         <div className="mt-5 ml-8 border-t mr-9 ">
-          <TodoList alreadyFilter={alreadyFilter} setTodo={setTodo}/>
+          <TodoList alreadyFilter={alreadyFilter} setUseTodo={setUseTodo} />
         </div>
         <footer className="mt-auto"><TodoFooter/></footer> {/* ค่อยแก้ */}
     </div>
