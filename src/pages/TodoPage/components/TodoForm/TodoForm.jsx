@@ -17,8 +17,13 @@ export default function TodoForm ({useTodo, setUseTodo}) {
 
     const saveTodo = (e) => {
         e.preventDefault()
-        const Text = useText;
-        console.log(Text)
+        const newTask ={
+            id: crypto.randomUUID(),
+            Text: useText,
+            Done: false
+        }
+        setUseTodo([...useTodo, newTask])  /* ครอบด้วย [array] ก่อนจะเพิ่ม object {key: value} */
+        setUseText("")
     }
 
     return (
