@@ -1,7 +1,11 @@
-export default function TodoFooter () {
+export default function TodoFooter ({useTodo}) {
+
+    const remainingTask = useTodo.filter((i) => i.Done === false).length;
+
     return (
         <div>
-            ท้ายเว็บ
+            {}
+            เหลือ {remainingTask} งาน
         </div>
     )
 }

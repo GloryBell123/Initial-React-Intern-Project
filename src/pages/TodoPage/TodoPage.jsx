@@ -53,7 +53,7 @@ useEffect(() => {
         <div className="mt-5 ml-8 border-t mr-9 ">
           <TodoList alreadyFilter={alreadyFilter} setUseTodo={setUseTodo} useFilterState={useFilterState} filterStatus={filterStatus}/>
         </div>
-        <footer className="mt-auto"><TodoFooter/></footer> {/* ค่อยแก้ */}
+        <footer className="mt-auto"><TodoFooter useTodo={useTodo}/></footer>
     </div>
   );
 }
