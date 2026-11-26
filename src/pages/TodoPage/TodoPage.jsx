@@ -11,11 +11,13 @@ day: "numeric",
 weekday: 'long',
 });
 
-// const 
+const filterStatus =  {
+        all: "ทั้งหมด",
+        notDone: "ยังไม่เสร็จ",
+        done: "เสร็จแล้ว",
+      }
 
 export default function TodoPage() {
-
-
 
   const [useTodo, setUseTodo] = useState([
     {id: 1, Text: "TestTodoList-notDone", Done: false},
@@ -24,16 +26,16 @@ export default function TodoPage() {
 
   console.log(useTodo) 
 
-  const [useFilterState, setUseFilterState] = useState("ทั้งหมด"); {/* State ของ button (ทั้งหมด, ยังไม่เสร็จ, เสร็จแล้ว) */}
+  const [useFilterState, setUseFilterState] = useState(filterStatus.all); {/* State ของ button (ทั้งหมด, ยังไม่เสร็จ, เสร็จแล้ว) */}
 
   const alreadyFilter = useTodo.filter((i) => {      {/* ต้องเป็น true ถึงจะแสดงผล */}
-    if (useFilterState === "ทั้งหมด") {                {/* แสดงทั้ง array Todo */}
-      return i;
+    if (useFilterState === filterStatus.all) {                {/* แสดงทั้ง array Todo */}
+      return true;
     }
-    else if (useFilterState === "ยังไม่เสร็จ") {          {/* สลับจาก false เป็น true */}
+    else if (useFilterState === filterStatus.notDone) {          {/* สลับจาก false เป็น true */}
       return !i.Done;
     }
-    else if (useFilterState === "เสร็จแล้ว") {           {/* แสดงเฉพาะ true */}
+    else if (useFilterState === filterStatus.done) {           {/* แสดงเฉพาะ true */}
       return i.Done;
     }
   })
@@ -47,7 +49,7 @@ export default function TodoPage() {
           <TodoForm/>
         </div>
         <div className="ml-7 mt-5 max-w-[80%] md:max-w-[80%] w-full">
-          <FilterTabs filter={useFilterState} setFilter={setUseFilterState}/>
+          <FilterTabs useFilterState={useFilterState} setUseFilterState={setUseFilterState}/>
         </div>
         <div className="mt-5 ml-8 border-t mr-9 ">
           <TodoList alreadyFilter={alreadyFilter} setUseTodo={setUseTodo} />
