@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Header from "./components/Header/Header.jsx"
 import TodoForm from "./components/TodoForm/TodoForm.jsx"
 import FilterTabs from "./components/FilterTabs/FilterTabs.jsx";
@@ -19,14 +19,11 @@ const filterStatus =  {
 
 export default function TodoPage() {
 
-  const [useTodo, setUseTodo] = useState([
-    {id: crypto.randomUUID(), Text: "TestTodoList-notDone", Done: false},
-    {id: crypto.randomUUID(), Text: "TestTodoList-Done", Done: true},
-    {id: crypto.randomUUID(), Text: "TestTodoList-Done", Done: true},
-  ]);
+  const [useTodo, setUseTodo] = useState(() => JSON.parse(localStorage.getItem("data")) || []); /* เปลี่ยน str เป็น js */
 
-/****************************************************** เสร็จหมดแล้วลบบรรทัดนี้ด้วย เกะกะลูกตาจัด ******************************************************/
-  /*********** เสร็จหมดแล้วลบบรรทัดนี้ด้วย เกะกะลูกตาจัด ***********/ console.log(useTodo) /*********** เสร็จหมดแล้วลบบรรทัดนี้ด้วย เกะกะลูกตาจัด ***********/
+useEffect(() => {
+  localStorage.setItem("data", JSON.stringify(useTodo)); /* เปลี่ยน js เป็น str */
+}, [useTodo])
 
   const [useFilterState, setUseFilterState] = useState(filterStatus.all); {/* State ของ button (ทั้งหมด, ยังไม่เสร็จ, เสร็จแล้ว) */}
 
