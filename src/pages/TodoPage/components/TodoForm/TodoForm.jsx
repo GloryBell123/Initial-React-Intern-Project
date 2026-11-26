@@ -11,6 +11,11 @@ export default function TodoForm ({useTodo, setUseTodo}) {
 
     const stopAlert = () => {
         setUseFocus(false)
+        setUseText("");
+    }
+
+    const emptyOnBlur = () => {
+        inputRef.current?.blur()
         setUseText("")
     }
 
@@ -38,11 +43,11 @@ export default function TodoForm ({useTodo, setUseTodo}) {
                     onChange={(e) => setUseText(e.target.value)}
                     onFocus={alert} onBlur={stopAlert}
                     onKeyDown={(e) => {
-                            if (e.key === "Escape") inputRef.current?.blur(); }}/>
+                            if (e.key === "Escape") emptyOnBlur(); }}/>
                     {empty && useFocus ? <div className="absolute left-0 bottom-full ml-1 mb-1 text-sm text-[#c4320a] font-medium">กรุณาพิมพ์ชื่องาน</div> : ""}
                 </div>
                 
-                <button type="submit" className="border rounded-xl bg-[#4f46e5] w-30 md:w-20 text-white text-[18px]" disabled={useText.trim()===""}>
+                <button type="submit" onMouseDown={(e) => e.preventDefault()} className="border rounded-xl bg-[#4f46e5] w-30 md:w-20 text-white text-[18px]" disabled={useText.trim()===""}>
                     + เพิ่ม
                 </button>
             </form>
