@@ -1,9 +1,38 @@
-export default function TodoForm () {
+import { useState } from "react"
+
+export default function TodoForm ({useTodo, setUseTodo}) {
+
+    const [useText, setUseText] = useState("");
+    const [useFocus, setUseFocus] = useState(false);
+
+    const alert = () => {
+        setUseFocus(true)
+    }
+
+    const stopAlert = () => {
+        setUseFocus(false)
+    }
+
+    const empty = useText.trim() === "";
+
+    const saveTodo = (e) => {
+        e.preventDefault()
+        const Text = useText;
+        console.log(Text)
+    }
+
     return (
         <div className="flex">
-            <form className="flex w-full justify-between gap-5">
-                <input type="text" className="border-2 rounded-xl border-[#d9dce1] p-3 flex-1 md:text-[20px]" placeholder="พิมพ์งานใหม่..."/>
-                <button className="border rounded-xl bg-[#4f46e5] w-30 md:w-20 text-white text-[18px]">
+            <form className="flex w-full justify-between gap-5" onSubmit={saveTodo}>
+                <div className="flex flex-1">
+                    <input type="text" value={useText} placeholder="พิมพ์งานใหม่..."
+                    className={` ${empty ? "focus:border-[#c4320a] focus:outline-none focus:bg-[#fff5f3]" : "" } border-2 border-[#d9dce1] rounded-xl p-3 flex-1 md:text-[20px]`}
+                    onChange={(e) => setUseText(e.target.value)}
+                    onFocus={alert} onBlur={stopAlert}/>
+                    {empty && useFocus ? <div className="absolute top-35 text-sm text-[#c4320a] font-medium">กรุณาพิมพ์ชื่องาน</div> : ""}
+                </div>
+                
+                <button type="submit" className="border rounded-xl bg-[#4f46e5] w-30 md:w-20 text-white text-[18px]" disabled={useText.trim()===""}>
                     + เพิ่ม
                 </button>
             </form>

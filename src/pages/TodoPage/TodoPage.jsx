@@ -6,9 +6,9 @@ import TodoList from "./components/TodoList/TodoList.jsx";
 import TodoFooter from "./components/TodoFooter/TodoFooter.jsx";
 
 let date = new Date().toLocaleDateString("th-TH", {
-month: "long",
-day: "numeric",
-weekday: 'long',
+  month: "long",
+  day: "numeric",
+  weekday: 'long',
 });
 
 const filterStatus =  {
@@ -20,11 +20,13 @@ const filterStatus =  {
 export default function TodoPage() {
 
   const [useTodo, setUseTodo] = useState([
-    {id: 1, Text: "TestTodoList-notDone", Done: false},
-    {id: 2, Text: "TestTodoList-Done", Done: true},
+    {id: crypto.randomUUID(), Text: "TestTodoList-notDone", Done: false},
+    {id: crypto.randomUUID(), Text: "TestTodoList-Done", Done: true},
+    {id: crypto.randomUUID(), Text: "TestTodoList-Done", Done: true},
   ]);
 
-  console.log(useTodo) 
+/****************************************************** เสร็จหมดแล้วลบบรรทัดนี้ด้วย เกะกะลูกตาจัด ******************************************************/
+  /*********** เสร็จหมดแล้วลบบรรทัดนี้ด้วย เกะกะลูกตาจัด ***********/ console.log(useTodo) /*********** เสร็จหมดแล้วลบบรรทัดนี้ด้วย เกะกะลูกตาจัด ***********/
 
   const [useFilterState, setUseFilterState] = useState(filterStatus.all); {/* State ของ button (ทั้งหมด, ยังไม่เสร็จ, เสร็จแล้ว) */}
 
@@ -46,13 +48,13 @@ export default function TodoPage() {
           <Header Title="สิ่งที่ต้องทำ" Date={date} />
         </div>
         <div className="mt-5 max-w-[92%] w-full mx-auto">
-          <TodoForm/>
+          <TodoForm useTodo={useTodo} setUseTodo={setUseTodo} />
         </div>
         <div className="ml-7 mt-5 max-w-[80%] md:max-w-[80%] w-full">
           <FilterTabs useFilterState={useFilterState} setUseFilterState={setUseFilterState}/>
         </div>
         <div className="mt-5 ml-8 border-t mr-9 ">
-          <TodoList alreadyFilter={alreadyFilter} setUseTodo={setUseTodo} />
+          <TodoList alreadyFilter={alreadyFilter} setUseTodo={setUseTodo} useFilterState={useFilterState} filterStatus={filterStatus}/>
         </div>
         <footer className="mt-auto"><TodoFooter/></footer> {/* ค่อยแก้ */}
     </div>
